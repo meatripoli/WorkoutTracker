@@ -1,32 +1,21 @@
-var db = require("../models");
+const path = require("path");
+// var db = require("../models");
 // js template literal pages
-var index = require("../views/index.js");
-const exercise = require("../views/exercise.js");
-const stats = require("../views/stats.js");
-//const notFound = require("../views/404.js");
+const indexPage = require("../views/index.js");
+
 
 module.exports = function(app) {
-  // Load index page
+
   app.get("/", function(req, res) {
-    res.send(index.render());
+    console.log("inside / route send to home page")
+    res.send(indexPage.render());
   });
-  // new exercise
   app.get("/exercise", function(req, res) {
-    res.send(exercise.render());
+    console.log("inside /exercise route send to excercise page")
+    // res.send(indexPage.render());
   });
-
-  // continue exercise
-  app.get("/exercise?", function(req, res) {
-    res.redirect("/");
-  })
-
-  // dashboard
   app.get("/stats", function(req, res) {
-    res.send(stats.render());
-  })
-  
-  // This needs to be the last route defined
-  app.get("*", function(req, res) {
-    res.redirect("/");
+    console.log("inside /stats route send to dashboard page")
+    // res.send(indexPage.render());
   });
 };
