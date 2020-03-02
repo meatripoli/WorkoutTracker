@@ -17,7 +17,6 @@ module.exports = function(app) {
     app.get("/api/workouts",(req,res) => {
         console.log("inside /api/workouts get route");
         db.find({}).then( data => {
-            console.log(data);
             res.json(data);
         })
     })
@@ -26,18 +25,8 @@ module.exports = function(app) {
         console.log("inside /api/workouts post route");
         console.log(body);
         let newRecord = {
-            day: new Date().setDate(new Date().getDate()-10),
+            day: new Date().setDate(new Date().getDate()),
             exercises: []
-            //     {
-            //     type: body.exercises.type,
-            //     name: body.exercises.name,
-            //     duration: body.exercises.duration,
-            //     weight: body.exercises.weight,
-            //     reps: body.exercises.reps,
-            //     sets: body.exercises.sets,
-            //     distance: body.exercises.distance
-            //     }
-            // ]
         }
         ///do we need to add the date in the create and update statements
         db.create(newRecord)
@@ -55,15 +44,16 @@ module.exports = function(app) {
         console.log("Body: ");
         console.log(req.body)
         console.log("ID: "+req.params.id);
+        // console.log("params: ",req.params);
         console.log("inside /api/workouts/:id put route");
         let newExercise = {
-            type: body.exercises.type,
-            name: body.exercises.name,
-            duration: body.exercises.duration,
-            weight: body.exercises.weight,
-            reps: body.exercises.reps,
-            sets: body.exercises.sets,
-            distance: body.exercises.distance
+            type: req.body.type,
+            name: req.body.name,
+            duration: req.body.duration,
+            weight: req.body.weight,
+            reps: req.body.reps,
+            sets: req.body.sets,
+            distance: req.body.distance
         }
         db.update({_id: req.params.id},{$push: {exercises: newExercise}})
         .then(dbExcericise => {

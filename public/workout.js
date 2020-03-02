@@ -9,7 +9,8 @@ async function initWorkout() {
 
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
+      //removed totalDuration inside the tallyExercises function since its part of the excercise array
+      //totalDuration: lastWorkout.totalDuration,
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
@@ -24,10 +25,12 @@ function tallyExercises(exercises) {
   console.log("inside tallyExercises function")
   const tallied = exercises.reduce((acc, curr) => {
     if (curr.type === "resistance") {
+      acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
       acc.totalSets = (acc.totalSets || 0) + curr.sets;
       acc.totalReps = (acc.totalReps || 0) + curr.reps;
     } else if (curr.type === "cardio") {
+      acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
       acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
     }
     console.log(acc)
