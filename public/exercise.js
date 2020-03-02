@@ -18,6 +18,7 @@ let workoutType = null;
 let shouldNavigateAway = false;
 
 async function initExercise() {
+  console.log("inside initExercise function")
   let workout;
 
   if (location.search.split("=")[1] === undefined) {
@@ -33,8 +34,9 @@ async function initExercise() {
 initExercise();
 
 function handleWorkoutTypeChange(event) {
+  console.log("inside handleWorkoutTypeChange function")
   workoutType = event.target.value;
-
+  console.log(workoutType)
   if (workoutType === "cardio") {
     cardioForm.classList.remove("d-none");
     resistanceForm.classList.add("d-none");
@@ -50,6 +52,7 @@ function handleWorkoutTypeChange(event) {
 }
 
 function validateInputs() {
+  console.log("inside validateInputs function")
   let isValid = true;
 
   if (workoutType === "resistance") {
@@ -96,6 +99,7 @@ function validateInputs() {
 }
 
 async function handleFormSubmit(event) {
+  console.log("inside handleFormSubmit function")
   event.preventDefault();
 
   let workoutData = {};
@@ -113,13 +117,14 @@ async function handleFormSubmit(event) {
     workoutData.reps = Number(repsInput.value.trim());
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
-
+  console.log(workoutData)
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");
 }
 
 function handleToastAnimationEnd() {
+  console.log("inside handleToastAnimationEnd function")
   toast.removeAttribute("class");
   if (shouldNavigateAway) {
     location.href = "/";
@@ -127,6 +132,7 @@ function handleToastAnimationEnd() {
 }
 
 function clearInputs() {
+  console.log("inside clearInputs function")
   cardioNameInput.value = "";
   nameInput.value = "";
   setsInput.value = "";

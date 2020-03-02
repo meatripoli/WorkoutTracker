@@ -1,4 +1,5 @@
 async function initWorkout() {
+  console.log("inside initWorkout function")
   const lastWorkout = await API.getLastWorkout();
   console.log("Last workout:", lastWorkout);
   if (lastWorkout) {
@@ -20,6 +21,7 @@ async function initWorkout() {
 }
 
 function tallyExercises(exercises) {
+  console.log("inside tallyExercises function")
   const tallied = exercises.reduce((acc, curr) => {
     if (curr.type === "resistance") {
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
@@ -28,12 +30,15 @@ function tallyExercises(exercises) {
     } else if (curr.type === "cardio") {
       acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
     }
+    console.log(acc)
     return acc;
   }, {});
+  console.log(tallied)
   return tallied;
 }
 
 function formatDate(date) {
+  console.log("inside formatDate function")
   const options = {
     weekday: "long",
     year: "numeric",
@@ -45,8 +50,9 @@ function formatDate(date) {
 }
 
 function renderWorkoutSummary(summary) {
+  console.log("inside renderWorkoutSummary function")
   const container = document.querySelector(".workout-stats");
-
+  console.log(container)
   const workoutKeyMap = {
     date: "Date",
     totalDuration: "Total Workout Duration",
@@ -68,10 +74,12 @@ function renderWorkoutSummary(summary) {
     p.appendChild(textNode);
 
     container.appendChild(p);
+    console.log(container)
   });
 }
 
 function renderNoWorkoutText() {
+  console.log("inside renderNoWorkoutText function")
   const container = document.querySelector(".workout-stats");
   const p = document.createElement("p");
   const strong = document.createElement("strong");
@@ -79,6 +87,7 @@ function renderNoWorkoutText() {
 
   p.appendChild(strong);
   container.appendChild(p);
+  console.log(container)
 }
 
 initWorkout();
